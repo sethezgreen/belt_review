@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Recipe Share</title>
+</head>
+<body>
+    <div class="top-nav padding_15">
+        <h1>Welcome {{session.first_name}}</h1>
+        <div>
+            <a href="/recipes">back to recipes</a>
+            <a href="/logout">logout</a>
+        </div>
+    </div>
+    <div class="top-nav padding_15">
+        <h1>{{ recipe.name }}</h1>
+        <p>Posted by: {{ recipe.first_name }}</p>
+    </div>
+    <table class="recipe">
+            <tr>
+                <td>Description</td>
+                <td>{{ recipe.description }}</td>
+            </tr>
+            <tr>
+                <td>Under 30 Minutes?</td>
+                <td>{{ recipe.under_30 }}</td>
+            </tr>
+            <tr>
+                <td>Instructions:</td>
+                <td>{{ recipe.instructions }}</td>
+            </tr>
+            <tr>
+                <td>Date Made:</td>
+                <td>{{ recipe.date_made }}</td>
+            </tr>
+    </table>
+</body>
+</html>

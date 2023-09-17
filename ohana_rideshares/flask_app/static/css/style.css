@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+label {
+    display: flex;
+    justify-content: space-between;
+}
+
+input {
+    margin-left: 5px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: black 2px solid;
+    margin-bottom: 10px;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.top-nav a{
+    margin-left: 30px;
+}
+
+.top-nav button {
+    border-radius: 50%;
+}
+
+.ride-post {
+    border: black 2px solid;
+    margin: 5px;
+    padding: 5px;
+}
+
+.yellow {
+    background-color: palegoldenrod;
+}
+
+.text-orange {
+    color: orange;
+}

@@ -1,0 +1,14 @@
+User Validations:
+    first and last must be > 2 char. \\
+    valid email \\
+    pass must match confirm pass \\
+    email cannot be taken \\
+
+Login Authentication:
+    email must exist \\
+    password must match the email \\
+
+To-do:
+    prepopulate Date \\
+    "           " radio **Still not sure how to achieve this
+    delete link \\

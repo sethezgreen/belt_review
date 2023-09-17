@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Ohana Rideshare</title>
+</head>
+<body>
+    <div class="top-nav">
+        <h1>Request A Ride</h1>
+        <div>
+            <a href="/rides/dashboard">home</a>
+            <a href="/users/logout">logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+            <form action="/rides/new" method="post">
+                <label>
+                    Destination:
+                    <input type="text" name="destination">
+                </label>
+                <label>
+                    Pick-Up Location:
+                    <input type="text" name="pick_up_location">
+                </label>
+                <label>
+                    Rideshare Date:
+                    <input type="date" name="date">
+                </label>
+                <label>
+                    Details:
+                    <textarea name="details" id="" cols="30" rows="10"></textarea>
+                </label>
+                <input type="submit" value="Post">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- Format for adding images -->
+<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->

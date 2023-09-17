@@ -1,0 +1,39 @@
+.container {
+    padding: 15px;
+}
+
+.display-flex {
+    display: flex;
+}
+
+label {
+    display: block;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-nav a{
+    margin: 10px;
+}
+
+label {
+    display: block;
+}
+
+.recipe {
+    border: 2px solid black;
+    margin: 15px;
+}
+
+.padding_15 {
+    padding: 15px;
+}
+
+.form-col {
+    margin: 5px;
+}
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Ohana Rideshare</title>
+</head>
+<body>
+    <div class="flex-end">
+        <div>
+            <a href="/rides/dashboard">home</a>
+            <a href="/users/logout">logout</a>
+        </div>
+    </div>
+    <div class="">
+        <h2>Ready for your trip to {{ ride.destination }}?</h2>
+        <table>
+            <tr>
+                <td>Who's driving?</td>
+                {% if ride.driver.id == session['user_id'] %}
+                <td>You</td>
+                {% else %}
+                <td>{{ ride.driver.first_name }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Who's coming along?</td>
+                {% if ride.rider.id == session['user_id'] %}
+                <td>You</td>
+                {% else %}
+                <td>{{ ride.rider.first_name }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Date:</td>
+                <td>{{ ride.date }}</td>
+            </tr>
+            <tr>
+                <td>Pick-up Location:</td>
+                <td>{{ ride.pick_up_location }}</td>
+            </tr>
+            <tr>
+                <td>Details:</td>
+                <td>{{ ride.details }}</td>
+            </tr>
+        </table>
+        <a href="/rides/edit/{{ride.id}}">Edit</a> | <a href="/rides/delete/{{ride.id}}">Delete</a>
+    </div>
+    <div>
+        <h3>Ride Messages:</h3>
+        {% for message in messages %} 
+        <table>
+            <tr>
+                <td></td>
+                <td> {{message.content}} </td>
+            </tr>
+        </table>
+        {% endfor %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/messages/create" method="post">
+            <label>
+                <input type="hidden" name="ride_id" value="{{ride.id}}">
+                <input type="hidden" name="rider_id" value="{{ride.rider_id}}">
+                <input type="hidden" name="driver_id" value="{{ride.driver_id}}">
+                <textarea name="content" cols="50" rows="3"></textarea>
+            </label>
+            <input type="submit" value="Send Message">
+        </form>
+    </div>
+</body>
+</html>
+
+<!-- Format for adding images -->
+<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->

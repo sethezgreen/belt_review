@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Recipe Share</title>
+</head>
+<body>
+    <div class="container">
+        <div class="top-nav padding_15">
+            <h1>Add a New Recipe!</h1>
+            <div>
+                <a href="/recipes">back to recipes</a>
+                <a href="/logout">logout</a>
+            </div>
+        </div>
+        <div class="padding_15">
+            <div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+                <form action="/recipes/create" method="post" class="form display-flex">
+                    <div class="form-col">
+                        <label>
+                            Name:
+                            <input type="text" name="name">
+                        </label>
+                        <label>
+                            Description:
+                            <input type="text" name="description">
+                        </label>
+                        <label>
+                            Instructions:
+                            <textarea name="instructions" id="" cols="30" rows="10"></textarea>
+                        </label>
+                    </div>
+                    <div class="form-col">
+                        <label>
+                            Date Cooked/Made:
+                            <input type="date" name="date_made" value="">
+                        </label>
+                        <label>
+                            Under 30 Minutes?
+                            <input type="radio" name="under_30" value="Yes"> Yes 
+                            <input type="radio" name="under_30" value="No"> No
+                        </label>
+                        <input type="submit" value="Create">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- Format for adding images -->
+<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->
