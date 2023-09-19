@@ -16,7 +16,7 @@ class Message:
         self.ride_id = data['ride_id']
         self.rider_id = data['rider_id']
         self.driver_id = data['driver_id']
-        # need a self.creator to know who made the message, should this also go in sql?
+        self.creator = None # should this also go in sql?
         # could have creator_id and check that against the rider_id and driver_id to know who the other user is
         self.rider = None
         self.driver = None
