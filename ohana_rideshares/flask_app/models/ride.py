@@ -69,7 +69,7 @@ class Ride:
         result = results[0]
         one_ride = cls(result)
         one_ride.rider = user.User({
-            'id' : result['riders.id'],
+                    'id' : result['riders.id'],
                     'first_name' : result['first_name'],
                     'last_name' : result['last_name'],
                     'email' : result['email'],
@@ -78,7 +78,7 @@ class Ride:
                     'updated_at' : result['riders.updated_at']
         })
         one_ride.driver = user.User({
-            'id' : result['drivers.id'],
+                    'id' : result['drivers.id'],
                     'first_name' : result['drivers.first_name'],
                     'last_name' : result['drivers.last_name'],
                     'email' : result['drivers.email'],
@@ -86,6 +86,7 @@ class Ride:
                     'created_at' : result['drivers.created_at'],
                     'updated_at' : result['drivers.updated_at']
         })
+        one_ride.messages = message.Message.read_messages(ride_id)
         return one_ride
 
     @classmethod

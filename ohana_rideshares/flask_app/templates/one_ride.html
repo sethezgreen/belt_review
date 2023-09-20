@@ -15,7 +15,7 @@
             <a href="/users/logout">logout</a>
         </div>
     </div>
-    <div class="">
+    <div>
         <h2>Ready for your trip to {{ ride.destination }}?</h2>
         <table>
             <tr>
@@ -51,30 +51,34 @@
     </div>
     <div>
         <h3>Ride Messages:</h3>
-        {% for message in messages %} 
+        {% for message in ride.messages %} 
         <table>
             <tr>
-                <td></td>
-                <td> {{message.content}} </td>
+                {% if message.creator.id == session['user_id'] %}
+                <td>You:</td>
+                {% else %}
+                <td>{{ message.creator.first_name }}:</td>
+                {% endif %}
+                <td>{{ message.content }}</td>
             </tr>
         </table>
         {% endfor %}
-        {% with messages = get_flashed_messages() %}
+        <form action="/messages/create" method="post">
+            <label>
+                <input type="hidden" name="ride_id" value="{{ride.id}}">
+                <textarea name="content" cols="50" rows="3"></textarea>
+            </label>
+            <input type="submit" value="Send Message">
+        </form>
+        <div>
+            {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
                     <p>{{message}}</p>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <form action="/messages/create" method="post">
-            <label>
-                <input type="hidden" name="ride_id" value="{{ride.id}}">
-                <input type="hidden" name="rider_id" value="{{ride.rider_id}}">
-                <input type="hidden" name="driver_id" value="{{ride.driver_id}}">
-                <textarea name="content" cols="50" rows="3"></textarea>
-            </label>
-            <input type="submit" value="Send Message">
-        </form>
+        </div>
     </div>
 </body>
 </html>

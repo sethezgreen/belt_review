@@ -21,15 +21,13 @@ def new_ride():
 def users_main():
     if 'user_id' not in session: return redirect('/')
     all_rides = ride.Ride.get_all_ride_requests_with_rider()
-    print (all_rides)
     return render_template('home.html', all_rides = all_rides)
 
 @app.route('/rides/<int:ride_id>')
 def read_one_ride(ride_id):
     one_ride = ride.Ride.get_ride_by_id(ride_id)
-    print ("**********************", ride_id)
-    all_messages = message.Message.read_messages(ride_id)
-    return render_template('one_ride.html', ride = one_ride, messages = all_messages)
+    # this_ride_with_messages = message.Message.read_messages(ride_id)
+    return render_template('one_ride.html', ride = one_ride)
 
 # Update Rides Controller
 

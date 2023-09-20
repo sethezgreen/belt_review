@@ -14,12 +14,9 @@ class Message:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.ride_id = data['ride_id']
-        self.rider_id = data['rider_id']
-        self.driver_id = data['driver_id']
-        self.creator = None # should this also go in sql?
-        # could have creator_id and check that against the rider_id and driver_id to know who the other user is
-        self.rider = None
-        self.driver = None
+        self.user_id = data['user_id']
+        self.creator = None 
+        self.ride = None
         # What changes need to be made above for this project?
         #What needs to be added here for class association?
 
@@ -30,9 +27,11 @@ class Message:
     @classmethod
     def create_message(cls, data):
         if not cls.validate_message(data): return False
+        data = data.copy()
+        data['user_id'] = session['user_id']
         query = """
-            INSERT INTO messages (content, ride_id, rider_id, driver_id)
-            VALUES (%(content)s, %(ride_id)s, %(rider_id)s, %(driver_id)s)
+            INSERT INTO messages (content, ride_id, user_id)
+            VALUES (%(content)s, %(ride_id)s, %(user_id)s)
             ;"""
         connectToMySQL(cls.db).query_db(query, data)
         return True
@@ -45,13 +44,39 @@ class Message:
         query = """
             SELECT *
             FROM messages
+            JOIN users
+            ON users.id = messages.user_id
+            JOIN rides
+            ON rides.id = messages.ride_id
             WHERE ride_id = %(id)s
+            ORDER BY messages.created_at
             ;"""
         results = connectToMySQL(cls.db).query_db(query, data)
         all_messages = []
-        # for result in results:
-        #     one_message = cls(result)
-        #     one_message.
+        for result in results:
+            one_message = cls(result)
+            one_message.creator = user.User({
+                'id' : result['users.id'],
+                'first_name' : result['first_name'],
+                'last_name' : result['last_name'],
+                'email' : result['email'],
+                'password' : result ['password'],
+                'created_at' : result['users.created_at'],
+                'updated_at' : result['users.updated_at']
+            })
+            one_message.ride = ride.Ride({
+                'id' : result['rides.id'],
+                'destination' : result['destination'],
+                'pick_up_location' : result['pick_up_location'],
+                'date' : result['date'],
+                'details' : result['details'],
+                'created_at' : result['rides.created_at'],
+                'updated_at' : result['rides.updated_at'],
+                'rider_id' : result['rider_id'],
+                'driver_id' : result['driver_id']
+            })
+            
+            all_messages.append(one_message)
         return all_messages
     
     # Update Messages Models
